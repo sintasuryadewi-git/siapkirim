@@ -1,7 +1,0 @@
-CARA MERILIS (gratis, +/- 10 menit, di akun Cloudflare milikmu)
-1. Daftar/masuk di dash.cloudflare.com (gratis).
-2. Workers & Pages > Create > Pages > "Upload assets" (Direct Upload).
-3. Beri nama proyek (mis. siapnatal), seret folder ini (isinya index.html, robots.txt, _headers), klik Deploy.
-4. Kamu dapat alamat gratis: nama-proyek.pages.dev. Buka di HP dan coba.
-5. Statistik pengunjung (tanpa cookie): Analytics & Logs > Web Analytics > tambahkan situs, ikuti petunjuk.
-Catatan: alamat .pages.dev gratis. Domain sendiri opsional dan berbayar.
