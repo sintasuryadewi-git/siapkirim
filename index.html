@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Siap Natal — asisten belanja Natal untuk ibu</title>
+<meta name="description" content="Pilihan perlengkapan Natal yang sudah dikurasi: rating 4,8 ke atas, sesuai budget, dengan penjual terdekat lebih dulu.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E🎄%3C/text%3E%3C/svg%3E">
+<meta property="og:title" content="Siap Natal — asisten belanja Natal untuk ibu"><meta property="og:description" content="Pilihan perlengkapan Natal berating 4,8 ke atas, sesuai budget, penjual terdekat tampil dulu."><meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--ground:#FAF5EC;--surface:#FFFDF8;--line:#E6DCC9;--line2:#8A7E68;--text:#1E2622;--muted:#566059;--pri:#1F4A3A;--berry:#A8322D;--sand:#EFE6D3}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--ground);color:var(--text);font:400 16px/1.5 'Plus Jakarta Sans',system-ui,sans-serif}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;margin:0;line-height:1.2}
+a{color:var(--pri)}
+button,select,input{font:inherit;color:inherit}
+:focus-visible{outline:3px solid #2F6FED;outline-offset:2px}
+.wrap{max-width:720px;margin:0 auto;padding:0 16px}
+header.top{position:sticky;top:0;z-index:5;background:var(--surface);border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;align-items:center;gap:10px;min-height:60px;justify-content:space-between}
+.brand{font:700 20px Fraunces,Georgia,serif;color:var(--pri);text-decoration:none}
+.chip,.btn{min-height:44px;border-radius:22px;border:1px solid var(--line2);background:var(--surface);padding:0 16px;font-weight:600;font-size:14px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;text-decoration:none;color:var(--text)}
+.chip[aria-pressed=true]{background:var(--pri);color:#fff;border-color:var(--pri)}
+.btn.pri{background:var(--pri);border-color:var(--pri);color:#fff;border-radius:14px;min-height:48px}
+.btn.out{border:1.5px solid var(--pri);color:var(--pri);border-radius:12px}
+.cartbtn{position:relative;width:44px;padding:0;border-radius:22px}
+.badge{position:absolute;top:-4px;right:-4px;min-width:20px;height:20px;padding:0 5px;border-radius:10px;background:var(--berry);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.hero{padding:24px 0 8px}
+.hero h1{font-size:28px}
+.hero p{color:var(--muted);margin:8px 0 0}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px;margin-top:16px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}
+label.f{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--muted);font-weight:600;flex:1;min-width:140px}
+select,input[type=number],input[type=search]{min-height:44px;border:1px solid var(--line2);border-radius:12px;background:#fff;padding:0 12px;width:100%}
+.note{font-size:13px;color:var(--muted)}
+.bar{height:8px;border-radius:4px;background:#E9E0CE;overflow:hidden;margin-top:6px}
+.bar>i{display:block;height:100%;background:var(--pri)}
+.bar.over>i{background:var(--berry)}
+section{margin-top:28px}
+section>h2{font-size:22px;margin-bottom:10px}
+.paket{background:var(--sand);border-radius:18px;padding:16px}
+.paket ul{list-style:none;margin:12px 0;padding:0;display:flex;flex-direction:column;gap:6px}
+.paket li{display:flex;justify-content:space-between;gap:10px;font-size:14px}
+.tot{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;margin:8px 0 12px}
+.tot b{font-size:22px;color:var(--pri)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:4px 0 8px;margin-top:10px}
+.chips .chip{flex:none}
+.card{display:flex;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px;margin-top:10px}
+.ph{flex:none;width:72px;height:72px;border-radius:12px;background:var(--sand);display:flex;align-items:center;justify-content:center;font-size:28px}
+.card .b{flex:1;min-width:0}
+.card h3{font:600 15px/1.35 'Plus Jakarta Sans',sans-serif}
+.price{font-weight:700;color:var(--pri);font-size:17px;margin-top:2px}
+.meta{font-size:13px;color:var(--muted)}
+.tag{display:inline-block;font-size:12px;font-weight:700;padding:2px 8px;border-radius:10px;margin-right:6px;margin-top:4px}
+.t0,.t1{background:#DCEBDD;color:#1B4B2B}.t2{background:#EFE6D3;color:#4D4326}.t3{background:#F6DCD9;color:#7A2420}
+.why{font-size:13px;margin:6px 0 0;color:#3F4A44}
+.acts{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.empty{padding:20px;text-align:center;color:var(--muted)}
+#daftar .item{display:flex;align-items:center;gap:8px;padding:8px 8px 8px 4px;border:1px solid var(--line);border-radius:14px;background:var(--surface);margin-top:8px}
+#daftar .item input[type=checkbox]{width:22px;height:22px;accent-color:var(--pri);margin:0}
+#daftar .item label{width:44px;height:44px;display:flex;align-items:center;justify-content:center}
+#daftar .item.done .nm{text-decoration:line-through;color:var(--muted)}
+.item .nm{font-size:14px;font-weight:600;line-height:1.3}
+.x{border:0;background:none;color:var(--muted);min-width:44px;min-height:44px;cursor:pointer;font-size:13px;text-decoration:underline}
+footer{margin:40px 0 60px;padding-top:16px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+footer h2{font-size:16px;color:var(--text);margin:14px 0 4px}
+.stale{font-size:12px;color:var(--muted)}
+@media (prefers-reduced-motion:no-preference){.bar>i{transition:width .3s}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+<a class="brand" href="#top">Siap Natal</a>
+<a class="btn cartbtn" href="#daftar" aria-label="Daftar belanja"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 7h12l-1 13H7z"/><path d="M9 7a3 3 0 016 0"/></svg><span class="badge" id="badge">0</span></a>
+</div></header>
+
+<main class="wrap" id="top">
+<div class="hero">
+<h1>Perlengkapan Natal, sudah dipilihkan.</h1>
+<p>Rating 4,8 ke atas. Muat di budgetmu. Penjual terdekat tampil lebih dulu.</p>
+</div>
+
+<div class="panel" aria-label="Pengaturan">
+<div class="row">
+<label class="f">Kota kamu<select id="city"></select></label>
+<label class="f">Budget (Rp)<input type="number" id="budget" inputmode="numeric" min="0" step="10000"></label>
+</div>
+<p class="note" style="margin:8px 0 0">Kota dipakai untuk mengurutkan penjual terdekat. Tersimpan di perangkatmu saja.</p>
+</div>
+
+<section id="paketsec"><h2>Paket Natal Hemat</h2><div class="paket" id="paket"></div></section>
+
+<section id="produk"><h2>Semua pilihan</h2>
+<div class="row">
+<label class="f" style="flex:2">Cari<input type="search" id="q" placeholder="mis. lampu, toples"></label>
+<label class="f">Harga maksimal<select id="maxp"><option value="0">Semua</option><option value="50000">sampai Rp50.000</option><option value="100000">sampai Rp100.000</option><option value="250000">sampai Rp250.000</option></select></label>
+</div>
+<div class="chips" id="cats" role="group" aria-label="Kategori"></div>
+<div id="list" aria-live="polite"></div>
+</section>
+
+<section id="daftar"><h2>Daftar belanjaku</h2>
+<div class="panel" style="margin-top:0">
+<div class="row" style="justify-content:space-between;align-items:baseline"><span class="note" id="used"></span><b id="left" style="color:var(--pri)"></b></div>
+<div class="bar" id="bar"><i style="width:0"></i></div>
+<div class="note" id="cnt" style="margin-top:6px"></div>
+</div>
+<div id="items"></div>
+<p class="note">Setiap barang dibeli sendiri-sendiri lewat tombol "Beli di Shopee". Pembayaran dan pengiriman diurus Shopee.</p>
+</section>
+
+<footer>
+<p class="stale">Harga, stok, dan rating terakhir dicek <b id="chk"></b>. <b>Harga bisa berubah</b> sewaktu-waktu di Shopee, cek lagi sebelum membayar.</p>
+<h2 id="afiliasi">Keterbukaan afiliasi</h2>
+<p>Situs ini mengumpulkan pilihan produk dari Shopee. Kalau kamu menekan "Beli di Shopee" lalu berbelanja, kami bisa mendapat komisi kecil dari Shopee. Harga untukmu tidak bertambah. Kami hanya memilih produk berating 4,8 ke atas, dan tidak menerima bayaran untuk menampilkan produk tertentu.</p>
+<h2 id="privasi">Privasi</h2>
+<p>Tanpa akun dan tanpa data pribadi. Kota, budget, dan daftar belanjamu hanya disimpan di perangkatmu (penyimpanan lokal peramban) dan tidak dikirim ke server kami. Saat kamu menekan tombol ke Shopee, Shopee dapat memasang cookie sesuai kebijakan mereka. Kami dapat memakai statistik kunjungan tanpa cookie untuk mengetahui halaman mana yang dipakai.</p>
+<p>Situs ini tidak dibuat atau didukung oleh Shopee.</p>
+</footer>
+</main>
+
+<script>
+const UPDATED="24 November 2026";
+const P=[
+{id:"pvc150",n:"Pohon Natal PVC Premium 150 cm",k:"Dekor",h:215000,hn:"Pohon saja, 150 cm. Varian lain Rp109.990–409.000",s:532,r:4.8,rc:216,c:"Jakarta Barat",l:"https://s.shopee.co.id/6fj6Mpn1TP",w:"Rating 4,8 dari 216 penilaian. Harga pohon 150 cm paling wajar di kelasnya.",paket:1,e:"🎄"},
+{id:"led8",n:"Lampu Hias LED String 8 m Waterproof",k:"Dekor",h:42002,s:7000,r:4.9,rc:1500,c:"Jakarta Barat",l:"https://s.shopee.co.id/2gCxbWXLBi",w:"Terjual 7.000+, rating 4,9 dari 1.500+ penilaian. Murah dan aman dipakai di luar.",paket:1,e:"✨"},
+{id:"bola24",n:"Set Bola Natal Glossy 24 pcs (3 & 4 cm)",k:"Dekor",h:39999,s:496,r:4.9,rc:78,c:"Jakarta Barat",l:"https://s.shopee.co.id/9fMhwWFyLL",w:"Rating 4,9, tapi baru 78 penilaian, jadi bukti masih tipis.",paket:1,thin:1,e:"🔴"},
+{id:"kado5",n:"Kertas Kado Mix Natal Happy Pakka (5 lembar)",k:"Kado",h:10999,s:6000,r:4.9,rc:740,c:"Jakarta Barat",l:"https://s.shopee.co.id/8KrKM7GC0i",w:"Terjual 6.000+, rating 4,9 dari 740 penilaian. Murah untuk membungkus beberapa kado.",paket:1,e:"🎁"},
+{id:"toples6",n:"Toples Premium Bunga Kristal Set 6 + Nampan",k:"Hidangan",h:46999,hn:"Rp46.999–48.999 tergantung warna",s:10000,r:4.8,rc:22600,c:"Jakarta Barat",l:"https://s.shopee.co.id/7KynB4lZWS",w:"Rating 4,8 dari 22.600+ penilaian, terjual 10.000+. Bukti terkuat di daftar ini.",paket:1,e:"🍪"},
+{id:"jarum150",n:"Pohon Natal 150 cm Jarum Emas/Polos/Salju",k:"Dekor",h:210000,s:1000,r:4.8,rc:714,c:"Batam",l:"https://s.shopee.co.id/4LLBaUgY8w",w:"Rating 4,8 dari 714 penilaian, terjual 1.000+. Dikirim dari Batam, jadi ongkir ke Jawa bisa mahal.",e:"🎄"},
+{id:"kadojumbo",n:"Kertas Kado Instan Jumbo + Pita",k:"Kado",h:13000,s:874,r:4.8,rc:248,c:"Jakarta Utara",l:"https://s.shopee.co.id/3B9ECFeXxI",w:"Rating 4,8 dari 248 penilaian. Ukuran jumbo plus pita, cocok untuk kado besar.",e:"🎀"},
+{id:"popper",n:"DINOSO Party Popper Confetti 30–60 cm",k:"Pesta",h:16999,hn:"Rp7.999–52.999 tergantung ukuran",s:10000,r:4.8,rc:6500,c:"Jakarta Barat",l:"https://s.shopee.co.id/9AQRPuTZPy",w:"Rating 4,8 dari 6.500+ penilaian, terjual 10.000+. Toko Mall, tiba 25–27 Nov. Seru untuk malam Tahun Baru.",e:"🎉"},
+{id:"kaos",n:"Kaos Natal Couple Keluarga 2026 (dewasa & anak)",k:"Baju",h:32000,hn:"Rp32.000–55.000 tergantung ukuran dan motif",s:777,r:4.8,rc:109,c:"Jakarta Barat",l:"https://s.shopee.co.id/2VtXQyPpWH",w:"Rating 4,8 dari 109 penilaian. Satu motif untuk seluruh keluarga. Tiba 27–28 Nov, pesan segera.",e:"👕"}
+];
+const CITIES=[
+["Gresik","Jawa Timur","Jawa"],["Surabaya","Jawa Timur","Jawa"],["Sidoarjo","Jawa Timur","Jawa"],["Lamongan","Jawa Timur","Jawa"],["Mojokerto","Jawa Timur","Jawa"],["Malang","Jawa Timur","Jawa"],["Pasuruan","Jawa Timur","Jawa"],["Probolinggo","Jawa Timur","Jawa"],["Jember","Jawa Timur","Jawa"],["Banyuwangi","Jawa Timur","Jawa"],["Kediri","Jawa Timur","Jawa"],["Madiun","Jawa Timur","Jawa"],["Tuban","Jawa Timur","Jawa"],["Bojonegoro","Jawa Timur","Jawa"],
+["Semarang","Jawa Tengah","Jawa"],["Solo","Jawa Tengah","Jawa"],["Yogyakarta","DI Yogyakarta","Jawa"],["Bandung","Jawa Barat","Jawa"],["Bogor","Jawa Barat","Jawa"],["Depok","Jawa Barat","Jawa"],["Bekasi","Jawa Barat","Jawa"],["Tangerang","Banten","Jawa"],
+["Jakarta Barat","DKI Jakarta","Jawa"],["Jakarta Utara","DKI Jakarta","Jawa"],["Jakarta Selatan","DKI Jakarta","Jawa"],["Jakarta Pusat","DKI Jakarta","Jawa"],["Jakarta Timur","DKI Jakarta","Jawa"],
+["Denpasar","Bali","Bali"],["Medan","Sumatera Utara","Sumatera"],["Batam","Kepulauan Riau","Sumatera"],["Palembang","Sumatera Selatan","Sumatera"],["Balikpapan","Kalimantan Timur","Kalimantan"],["Makassar","Sulawesi Selatan","Sulawesi"],["Manado","Sulawesi Utara","Sulawesi"]
+];
+const cityInfo=n=>CITIES.find(c=>c[0]===n);
+const rp=n=>"Rp"+Math.round(n).toLocaleString("id-ID");
+const K={city:"sn_city",budget:"sn_budget",list:"sn_list"};
+const ls={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+let city=ls.get(K.city,"Gresik"),budget=ls.get(K.budget,500000),list=ls.get(K.list,[]),cat="Semua";
+if(!cityInfo(city))city="Gresik";
+function tier(p){const u=cityInfo(city),s=cityInfo(p.c);if(p.c===city)return 0;if(!u||!s)return 3;if(u[1]===s[1])return 1;if(u[2]===s[2])return 2;return 3}
+const TL=["Satu kota denganmu","Satu provinsi","Satu pulau","Beda pulau, ongkir bisa mahal"];
+const byId=id=>P.find(p=>p.id===id);
+function save(){ls.set(K.city,city);ls.set(K.budget,budget);ls.set(K.list,list)}
+function add(id){if(!list.find(x=>x.id===id)){list.push({id,done:false});save();render()}}
+function addPaket(){P.filter(p=>p.paket).forEach(p=>{if(!list.find(x=>x.id===p.id))list.push({id:p.id,done:false})});save();render();document.getElementById("daftar").scrollIntoView({behavior:"smooth"})}
+function rm(id){list=list.filter(x=>x.id!==id);save();render()}
+function tog(id){const x=list.find(y=>y.id===id);if(x){x.done=!x.done;save();render()}}
+function buy(p){return `<a class="btn out" href="${p.l}" target="_blank" rel="sponsored noopener noreferrer">Beli di Shopee</a>`}
+function card(p){const t=tier(p),inl=list.some(x=>x.id===p.id);
+return `<article class="card"><div class="ph" aria-hidden="true">${p.e}</div><div class="b"><h3>${p.n}</h3>
+<div class="price">${rp(p.h)}</div>${p.hn?`<div class="meta">${p.hn}</div>`:""}
+<div class="meta">★ ${String(p.r).replace(".",",")} dari ${p.rc.toLocaleString("id-ID")}${p.rc>=1500?"+":""} penilaian · terjual ${p.s.toLocaleString("id-ID")}${p.s>=1000?"+":""}</div>
+<div><span class="tag t${t}">${TL[t]}</span><span class="meta">${p.c}</span></div>
+${p.thin?`<div class="meta">Penilaian masih sedikit (di bawah 100).</div>`:""}
+<p class="why">${p.w}</p>
+<div class="acts"><button class="btn out" ${inl?"disabled aria-disabled=true":""} data-add="${p.id}">${inl?"Sudah di daftar":"Tambah ke daftar"}</button>${buy(p)}</div></div></article>`}
+function renderPaket(){const it=P.filter(p=>p.paket),tot=it.reduce((a,p)=>a+p.h,0);
+document.getElementById("paket").innerHTML=`<p style="margin:0 0 4px">${it.length} kebutuhan utama, semua rating 4,8 ke atas, dari penjual di Jakarta Barat.</p><ul>${it.map(p=>`<li><span>${p.e} ${p.n}</span><b>${rp(p.h)}</b></li>`).join("")}</ul>
+<div class="tot"><span>Total paket</span><b>${rp(tot)}</b></div><div class="note" style="margin-bottom:10px">${tot<=budget?`Sisa budget ${rp(budget-tot)} untuk baju keluarga dan kebutuhan lain.`:`Melebihi budget ${rp(tot-budget)}. Ganti satu barang atau naikkan budget.`}</div>
+<button class="btn pri" style="width:100%" data-paket="1">Tambah semua ke daftar</button>`}
+function renderList(){const q=document.getElementById("q").value.trim().toLowerCase(),mx=+document.getElementById("maxp").value;
+let a=P.filter(p=>(cat==="Semua"||p.k===cat)&&(!mx||p.h<=mx)&&(!q||(p.n+" "+p.k).toLowerCase().includes(q)));
+a.sort((x,y)=>tier(x)-tier(y)||y.r-x.r||y.s-x.s);
+document.getElementById("list").innerHTML=a.length?a.map(card).join(""):`<div class="empty">Belum ada yang cocok. Coba ganti kategori atau harga maksimal.</div>`}
+function renderDaftar(){const it=list.map(x=>({x,p:byId(x.id)})).filter(o=>o.p),tot=it.reduce((a,o)=>a+o.p.h,0),pct=budget>0?Math.min(100,tot/budget*100):0;
+document.getElementById("badge").textContent=it.length;
+document.getElementById("used").textContent=`Terpakai ${rp(tot)} dari ${rp(budget)}`;
+const L=document.getElementById("left");L.textContent=tot<=budget?`Sisa ${rp(budget-tot)}`:`Lebih ${rp(tot-budget)}`;L.style.color=tot<=budget?"":"var(--berry)";
+const b=document.getElementById("bar");b.className="bar"+(tot>budget?" over":"");b.firstElementChild.style.width=pct+"%";
+document.getElementById("cnt").textContent=`${it.length} barang · ${it.filter(o=>o.x.done).length} sudah dibeli. Harga yang tertera adalah harga terendah per varian, harga akhir mengikuti pilihanmu di Shopee.`;
+document.getElementById("items").innerHTML=it.length?it.map(({x,p})=>`<div class="item ${x.done?"done":""}"><label><input type="checkbox" ${x.done?"checked":""} data-tog="${p.id}" aria-label="Sudah dibeli: ${p.n}"></label><div style="flex:1;min-width:0"><div class="nm">${p.n}</div><div class="price" style="font-size:14px">${rp(p.h)}</div><div class="meta">${p.c}</div></div><div style="display:flex;flex-direction:column;align-items:flex-end">${buy(p)}<button class="x" data-rm="${p.id}">Hapus</button></div></div>`).join(""):`<div class="empty">Daftarmu masih kosong. Tambahkan dari paket atau daftar pilihan di atas.</div>`}
+function render(){renderPaket();renderList();renderDaftar()}
+function init(){
+document.getElementById("chk").textContent=UPDATED;
+const cs=document.getElementById("city");cs.innerHTML=CITIES.map(c=>`<option ${c[0]===city?"selected":""}>${c[0]}</option>`).join("");
+cs.onchange=()=>{city=cs.value;save();render()};
+const bi=document.getElementById("budget");bi.value=budget;bi.onchange=()=>{const v=parseInt(bi.value,10);budget=isNaN(v)||v<0?500000:v;bi.value=budget;save();render()};
+document.getElementById("q").oninput=renderList;document.getElementById("maxp").onchange=renderList;
+const cats=["Semua",...new Set(P.map(p=>p.k))];
+document.getElementById("cats").innerHTML=cats.map(c=>`<button class="chip" aria-pressed="${c===cat}" data-cat="${c}">${c}</button>`).join("");
+document.addEventListener("click",e=>{const t=e.target.closest("button,a");if(!t)return;
+if(t.dataset.cat){cat=t.dataset.cat;document.querySelectorAll("[data-cat]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.cat===cat));renderList()}
+else if(t.dataset.add)add(t.dataset.add);else if(t.dataset.paket)addPaket();else if(t.dataset.rm)rm(t.dataset.rm)});
+document.addEventListener("change",e=>{if(e.target.dataset.tog)tog(e.target.dataset.tog)});
+render()}
+init();
+</script>
+</body>
+</html>
