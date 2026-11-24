@@ -2,7 +2,7 @@
 const IMGBASE="https://down-aka-id.img.susercontent.com/";
 const UPDATED="25 November 2026";
 /* Isi dengan link "Publikasikan ke web" (format CSV) dari Google Sheets. Kosong = pakai data di bawah. */
-const SHEET_CSV="";
+const SHEET_CSV="https://docs.google.com/spreadsheets/d/e/2PACX-1vRDa1Q5itEI2NSxpOxlmB0aD2jKfngTQ5h4jEqkIqU2rFCm6IaHvu6JMLZ7yqXPN-F-Tv6RdF3lo4do/pub?gid=1488053086&single=true&output=csv";
 let P=[
 {id:"pvc150",img:"id-11134207-82252-mg10msxuxclr93.webp",n:"Pohon Natal PVC Premium 150 cm",k:"Dekor",h:215000,hn:"Pohon saja, 150 cm. Varian lain Rp109.990–409.000",s:532,r:4.8,rc:216,c:"Jakarta Barat",l:"https://s.shopee.co.id/6fj6Mpn1TP",w:"Rating 4,8 dari 216 penilaian. Harga pohon 150 cm paling wajar di kelasnya.",paket:1,e:"🎄"},
 {id:"led8",img:"id-11134207-81ztp-mv4ryh7kya6ic1.webp",n:"Lampu Hias LED String 8 m Waterproof",k:"Dekor",h:42002,s:7000,r:4.9,rc:1500,c:"Jakarta Barat",l:"https://s.shopee.co.id/2gCxbWXLBi",w:"Terjual 7.000+, rating 4,9 dari 1.500+ penilaian. Murah dan aman dipakai di luar.",paket:1,e:"✨"},
