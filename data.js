@@ -1,7 +1,9 @@
 // Data produk. Sumber: Sheet "Produk". Gambar = URL asli Shopee, tidak diubah.
 const IMGBASE="https://down-aka-id.img.susercontent.com/";
-const UPDATED="24 November 2026";
-const P=[
+const UPDATED="25 November 2026";
+/* Isi dengan link "Publikasikan ke web" (format CSV) dari Google Sheets. Kosong = pakai data di bawah. */
+const SHEET_CSV="";
+let P=[
 {id:"pvc150",img:"id-11134207-82252-mg10msxuxclr93.webp",n:"Pohon Natal PVC Premium 150 cm",k:"Dekor",h:215000,hn:"Pohon saja, 150 cm. Varian lain Rp109.990–409.000",s:532,r:4.8,rc:216,c:"Jakarta Barat",l:"https://s.shopee.co.id/6fj6Mpn1TP",w:"Rating 4,8 dari 216 penilaian. Harga pohon 150 cm paling wajar di kelasnya.",paket:1,e:"🎄"},
 {id:"led8",img:"id-11134207-81ztp-mv4ryh7kya6ic1.webp",n:"Lampu Hias LED String 8 m Waterproof",k:"Dekor",h:42002,s:7000,r:4.9,rc:1500,c:"Jakarta Barat",l:"https://s.shopee.co.id/2gCxbWXLBi",w:"Terjual 7.000+, rating 4,9 dari 1.500+ penilaian. Murah dan aman dipakai di luar.",paket:1,e:"✨"},
 {id:"bola24",img:"id-11134207-81ztl-murfvewnvh8q59.webp",n:"Set Bola Natal Glossy 24 pcs (3 & 4 cm)",k:"Dekor",h:39999,s:496,r:4.9,rc:78,c:"Jakarta Barat",l:"https://s.shopee.co.id/9fMhwWFyLL",w:"Rating 4,9, tapi baru 78 penilaian, jadi bukti masih tipis.",paket:1,thin:1,e:"🔴"},

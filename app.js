@@ -141,4 +141,21 @@ function init(){
  render();
 }
 window.addEventListener("storage",()=>{});
-init();
+/* ---------- baca database dari Google Sheets (CSV), data.js jadi cadangan ---------- */
+function parseCSV(t){const rows=[];let r=[],f="",q=false;for(let i=0;i<t.length;i++){const c=t[i];if(q){if(c==='"'){if(t[i+1]==='"'){f+='"';i++}else q=false}else f+=c}else if(c==='"')q=true;else if(c===","){r.push(f);f=""}else if(c==="\n"||c==="\r"){if(c==="\r"&&t[i+1]==="\n")i++;r.push(f);f="";if(r.length>1||r[0]!=="")rows.push(r);r=[]}else f+=c}
+ if(f!==""||r.length){r.push(f);rows.push(r)}return rows}
+function fromSheet(csv){const rows=parseCSV(csv);if(rows.length<2)return null;const h=rows[0].map(x=>x.trim()),ix=n=>h.indexOf(n);
+ const need=["id","status","nama","kategori","harga","kota","link_afiliasi","file_gambar","rating","jumlah_rating","terjual"];if(need.some(n=>ix(n)<0))return null;
+ const out=[];for(const r of rows.slice(1)){const g=n=>(r[ix(n)]||"").trim();
+  if(g("status")!=="Aktif")continue;
+  const h_=+g("harga"),rt=+String(g("rating")).replace(",","."),l=g("link_afiliasi"),im=g("file_gambar");
+  /* Sheet hanyalah data: cek ketat sebelum dipakai */
+  if(!/^[\w-]+$/.test(g("id"))||!(h_>0)||!(rt>=4.8)||!/^https:\/\/s\.shopee\.co\.id\/[\w-]+$/.test(l)||!/^[\w.-]+$/.test(im)||!cityInfo(g("kota")))continue;
+  const p={id:g("id"),img:im,n:g("nama"),k:g("kategori"),h:h_,s:+g("terjual")||0,r:rt,rc:+g("jumlah_rating")||0,c:g("kota"),l,w:g("alasan"),e:g("emoji")||"🛍️"};
+  if(g("catatan_harga"))p.hn=g("catatan_harga");if(g("paket"))p.paket=1;if(g("bukti_tipis"))p.thin=1;if(g("promo"))p.promo=g("promo");out.push(p)}
+ return out}
+async function loadSheet(){if(!SHEET_CSV)return;try{const ctl=new AbortController(),t=setTimeout(()=>ctl.abort(),6000);const res=await fetch(SHEET_CSV,{signal:ctl.signal,cache:"no-cache"});clearTimeout(t);if(!res.ok)return;
+ const np=fromSheet(await res.text());if(!np||np.length<3)return;
+ if(!["pvc150","popper"].every(id=>np.some(p=>p.id===id)))return; /* banner butuh produk ini */
+ P=np;const ids=new Set(P.map(p=>p.id));const n0=list.length;list=list.filter(x=>ids.has(x.id));if(list.length!==n0)save();render()}catch(e){/* pakai data cadangan */}}
+init();loadSheet();
