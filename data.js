@@ -17,7 +17,7 @@ let P=[
 ];
 const CITIES=[
 ["Gresik","Jawa Timur","Jawa"],["Surabaya","Jawa Timur","Jawa"],["Sidoarjo","Jawa Timur","Jawa"],["Lamongan","Jawa Timur","Jawa"],["Mojokerto","Jawa Timur","Jawa"],["Malang","Jawa Timur","Jawa"],["Pasuruan","Jawa Timur","Jawa"],["Probolinggo","Jawa Timur","Jawa"],["Jember","Jawa Timur","Jawa"],["Banyuwangi","Jawa Timur","Jawa"],["Kediri","Jawa Timur","Jawa"],["Madiun","Jawa Timur","Jawa"],["Tuban","Jawa Timur","Jawa"],["Bojonegoro","Jawa Timur","Jawa"],
-["Semarang","Jawa Tengah","Jawa"],["Solo","Jawa Tengah","Jawa"],["Yogyakarta","DI Yogyakarta","Jawa"],["Bandung","Jawa Barat","Jawa"],["Bogor","Jawa Barat","Jawa"],["Depok","Jawa Barat","Jawa"],["Bekasi","Jawa Barat","Jawa"],["Tangerang","Banten","Jawa"],
+["Semarang","Jawa Tengah","Jawa"],["Solo","Jawa Tengah","Jawa"],["Wonogiri","Jawa Tengah","Jawa"],["Yogyakarta","DI Yogyakarta","Jawa"],["Bandung","Jawa Barat","Jawa"],["Bogor","Jawa Barat","Jawa"],["Depok","Jawa Barat","Jawa"],["Bekasi","Jawa Barat","Jawa"],["Tangerang","Banten","Jawa"],
 ["Jakarta Barat","DKI Jakarta","Jawa"],["Jakarta Utara","DKI Jakarta","Jawa"],["Jakarta Selatan","DKI Jakarta","Jawa"],["Jakarta Pusat","DKI Jakarta","Jawa"],["Jakarta Timur","DKI Jakarta","Jawa"],
 ["Denpasar","Bali","Bali"],["Medan","Sumatera Utara","Sumatera"],["Batam","Kepulauan Riau","Sumatera"],["Palembang","Sumatera Selatan","Sumatera"],["Balikpapan","Kalimantan Timur","Kalimantan"],["Makassar","Sulawesi Selatan","Sulawesi"],["Manado","Sulawesi Utara","Sulawesi"]
 ];
