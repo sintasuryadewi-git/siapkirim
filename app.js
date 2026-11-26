@@ -3,7 +3,10 @@ const $=id=>document.getElementById(id);
 const rp=n=>"Rp"+Math.round(n).toLocaleString("id-ID");
 const cityInfo=n=>CITIES.find(c=>c[0]===n);
 const byId=id=>P.find(p=>p.id===id);
-const K={city:"sn_city",budget:"sn_budget",list:"sn_list"};
+const PAGE=document.body.dataset.page;
+const COL=document.body.dataset.col||"natal";
+const K=COL==="natal"?{city:"sn_city",budget:"sn_budget",list:"sn_list"}:{city:"sn_city",budget:"sn_budget_"+COL,list:"sn_list_"+COL};
+P=P.filter(p=>(p.col||"natal")===COL);
 const ls={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
 let city=ls.get(K.city,"Gresik"),budget=ls.get(K.budget,500000),list=ls.get(K.list,[]);
 if(!cityInfo(city))city="Gresik";
@@ -21,17 +24,18 @@ const inList=id=>list.find(x=>x.id===id);
 function tier(p){const u=cityInfo(city),s=cityInfo(p.c);if(p.c===city)return 0;if(!u||!s)return 3;if(u[1]===s[1])return 1;if(u[2]===s[2])return 2;return 3}
 const TL=["Satu kota denganmu","Satu provinsi","Satu pulau","Beda pulau, ongkir bisa mahal"];
 const REL="sponsored noopener noreferrer";
-const PAGE=document.body.dataset.page;
 const thumb=(p,c)=>`<div class="th ${c}" data-e="${p.e}"><img src="${IMGBASE}${p.img}" alt="${p.n.replace(/"/g,"")}" loading="lazy" referrerpolicy="no-referrer"></div>`;
 document.addEventListener("error",e=>{const t=e.target;if(t.tagName==="IMG"&&t.parentNode&&t.parentNode.dataset.e){t.parentNode.textContent=t.parentNode.dataset.e}},true);
 /* ---------- header, footer, dialog ---------- */
 const IC={home:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11l8-7 8 7"/><path d="M6 10v10h12V10"/></svg>',box:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8l9-5 9 5v8l-9 5-9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg>',check:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg>',cart:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h3l2.4 11.2a1 1 0 001 .8h9.2a1 1 0 001-.8L20 7H6"/><circle cx="9.5" cy="19.5" r="1.4"/><circle cx="17" cy="19.5" r="1.4"/></svg>'};
+const footHtml=()=>`<p class="stale">Harga, stok, dan rating terakhir dicek <b>${UPDATED}</b>. <b>Harga bisa berubah</b> sewaktu-waktu di Shopee, cek lagi sebelum membayar.</p><p>Kami afiliasi Shopee dan bisa mendapat komisi kecil kalau kamu belanja lewat tombol ke Shopee. Harga untukmu tidak bertambah. <a href="info.html">Selengkapnya: keterbukaan afiliasi dan privasi</a>. Situs ini tidak dibuat atau didukung oleh Shopee.</p>`;
 function chrome(){
- const nav=[["index.html","Beranda","index",IC.home],["paket.html","Paket","paket",IC.box],["dibeli.html","Daftar Sudah Dibeli","dibeli",IC.check]];
- document.body.insertAdjacentHTML("afterbegin",`<header class="top"><div class="wrap"><a class="brand" href="index.html">Siap Natal</a><div class="hr"><a class="bchip" id="bchip" href="daftar.html"></a><a class="cartbtn${PAGE==="daftar"?" on":""}" href="daftar.html" id="cart" aria-label="Daftar belanja">${IC.cart}<span class="badge" id="badge"></span></a></div></div></header>
+ if(PAGE==="hub"){document.body.insertAdjacentHTML("afterbegin",`<header class="top"><div class="wrap"><a class="brand" href="index.html">Siap Kirim Apapun</a></div></header>`);const f=document.querySelector("footer.foot");if(f)f.innerHTML=footHtml();return}
+ const nav=[["natal.html","Beranda","index",IC.home],["paket.html","Paket","paket",IC.box],["dibeli.html","Daftar Sudah Dibeli","dibeli",IC.check]];
+ document.body.insertAdjacentHTML("afterbegin",`<header class="top"><div class="wrap"><a class="brand" href="natal.html">Siap Natal</a><div class="hr"><a class="bchip" id="bchip" href="daftar.html"></a><a class="cartbtn${PAGE==="daftar"?" on":""}" href="daftar.html" id="cart" aria-label="Daftar belanja">${IC.cart}<span class="badge" id="badge"></span></a></div></div></header>
  <nav class="tabs" aria-label="Menu utama">${nav.map(n=>`<a href="${n[0]}" ${PAGE===n[2]?'aria-current="page"':""}>${n[3]}<span>${n[1]}</span></a>`).join("")}</nav><div id="toast" role="status" aria-live="polite"></div>`);
  const f=document.querySelector("footer.foot");
- if(f)f.innerHTML=`<p class="stale">Harga, stok, dan rating terakhir dicek <b>${UPDATED}</b>. <b>Harga bisa berubah</b> sewaktu-waktu di Shopee, cek lagi sebelum membayar.</p><p>Kami afiliasi Shopee dan bisa mendapat komisi kecil kalau kamu belanja lewat tombol ke Shopee. Harga untukmu tidak bertambah. <a href="info.html">Selengkapnya: keterbukaan afiliasi dan privasi</a>. Situs ini tidak dibuat atau didukung oleh Shopee.</p>`;
+ if(f)f.innerHTML=footHtml();
  document.body.insertAdjacentHTML("beforeend",`<dialog id="dlg" aria-labelledby="dt"><h2 id="dt" style="font-size:20px"></h2><p id="dm" style="margin:8px 0"></p><label class="f" id="dl">x<input type="number" id="dnew" inputmode="numeric"></label><p id="derr" role="alert" class="note" style="color:var(--berry);margin:6px 0 0"></p><div class="acts" style="justify-content:flex-end"><button type="button" class="btn" id="dcancel">Batal</button><button type="button" class="btn pri" id="dok"></button></div></dialog>`);
  let dOk=null;
  window.openDlg=o=>{$("dt").textContent=o.title;$("dm").textContent=o.msg;$("dl").firstChild.textContent=o.label;const i=$("dnew");i.value=o.value;i.min=o.min;$("derr").textContent="";$("dok").textContent=o.okText;
@@ -69,7 +73,7 @@ function card(p){const x=inList(p.id);return `<article class="gc${x&&x.st==="don
 const BANNERS=[
  {c:"s1",k:"Paket hemat",t:()=>`Paket Natal Hemat ${rp(P.filter(p=>p.paket).reduce((a,p)=>a+p.h,0))}`,d:"Pohon, lampu, bola, kertas kado, toples. Semua rating 4,8+.",cta:"Lihat paket",href:"paket.html",img:"pvc150"},
  {c:"s2",k:"Promo terpantau",t:()=>"Party popper diskon sampai 50%",d:"Untuk malam Tahun Baru. Harga coret terlihat di Shopee saat dicek 24 Nov, bisa berubah.",cta:"Lihat produk",href:"produk.html?id=popper",img:"popper"},
- {c:"s3",k:"Ongkir lebih ringan",t:()=>`Penjual terdekat dari ${city}`,d:"Urutan produk mengikuti kotamu, supaya ongkir tidak bengkak.",cta:"Lihat pilihan",href:"index.html#produk",img:"toples6"}];
+ {c:"s3",k:"Ongkir lebih ringan",t:()=>`Penjual terdekat dari ${city}`,d:"Urutan produk mengikuti kotamu, supaya ongkir tidak bengkak.",cta:"Lihat pilihan",href:"natal.html#produk",img:"toples6"}];
 function banner(){return `<div class="bw"><div class="ban" id="ban" role="region" aria-roledescription="carousel" aria-label="Promo dan pilihan unggulan" tabindex="0">${BANNERS.map((b,i)=>`<a class="slide ${b.c}" href="${b.href}" aria-label="Slide ${i+1} dari ${BANNERS.length}"><div class="tx"><div><div class="k">${b.k}</div><h3>${b.t()}</h3><div class="fine" style="font-size:13px;margin-top:4px">${b.d}</div></div><span class="cta">${b.cta} →</span></div>${thumb(byId(b.img),"").replace('class="th "','class="im th"')}</a>`).join("")}</div><button class="bn prev" id="bprev" aria-label="Slide sebelumnya">‹</button><button class="bn next" id="bnext" aria-label="Slide berikutnya">›</button><div class="dots" id="dots">${BANNERS.map((b,i)=>`<button aria-label="Ke slide ${i+1}" data-dot="${i}"></button>`).join("")}</div></div>`}
 let banT=null;
 function initBanner(){const el=$("ban");if(!el)return;const sl=[...el.children];let cur=0;
@@ -89,9 +93,14 @@ function initBanner(){const el=$("ban");if(!el)return;const sl=[...el.children];
  const play=()=>{if(reduce)return;clearInterval(banT);banT=setInterval(()=>go(cur+1),5500)},stop=()=>clearInterval(banT);
  ["pointerenter","focusin","touchstart"].forEach(ev=>el.parentNode.addEventListener(ev,stop,{passive:true}));["pointerleave","focusout"].forEach(ev=>el.parentNode.addEventListener(ev,play));play()}
 /* ---------- halaman ---------- */
+/* ---------- hub: pintu depan semua koleksi ---------- */
+let COUNTS=null;
+function pageHub(){
+ const cnt=s=>COUNTS&&COUNTS[s]?`<span class="kn">${COUNTS[s].toLocaleString("id-ID")} pilihan</span>`:"";
+ $("main").innerHTML=`<div class="hero"><h1>Momen apa pun, barang pilihan yang sudah dicek.</h1><p>Semua berating 4,8 ke atas, dipilihkan dari Shopee. Pilih koleksinya, lalu klik.</p></div><section><h2>Koleksi</h2><div class="kol">${KOLEKSI.map(k=>`<a class="kc" href="${k.href}"><span class="ke" aria-hidden="true">${k.e}</span><div class="kt"><h3>${k.nama}</h3><span class="kd">${k.d}</span>${cnt(k.slug)}</div><span class="ka">Buka</span></a>`).join("")}</div></section><p class="note" style="margin-top:18px">Koleksi baru ditambahkan mengikuti momen.</p>`}
 function pageIndex(){
  const cats=["Semua",...new Set(P.map(p=>p.k))];window.__cat=window.__cat||"Semua";
- $("main").innerHTML=`<div class="hero"><h1>Perlengkapan Natal, sudah dipilihkan.</h1><p>Rating 4,8 ke atas. Muat di budgetmu. Penjual terdekat tampil lebih dulu.</p></div>${banner()}${settings()}${strip()}
+ $("main").innerHTML=`<a class="back" href="index.html">← Semua koleksi</a><div class="hero" style="padding-top:0"><h1>Perlengkapan Natal, sudah dipilihkan.</h1><p>Rating 4,8 ke atas. Muat di budgetmu. Penjual terdekat tampil lebih dulu.</p></div>${banner()}${settings()}${strip()}
  <section id="paketsec"><h2>Paket Natal Hemat</h2><div class="paket" id="pk"></div></section>
  <section id="produk"><h2>Semua pilihan</h2><div class="row"><label class="f" style="flex:2">Cari<input type="search" id="q" placeholder="mis. lampu, toples"></label><label class="f">Urutkan<select id="sortb"><option value="near">Terdekat dulu</option><option value="cheap">Termurah</option><option value="rate">Rating tertinggi</option><option value="sold">Terlaris</option></select></label><label class="f">Harga maksimal<select id="maxp"><option value="0">Semua</option><option value="50000">sampai Rp50.000</option><option value="100000">sampai Rp100.000</option><option value="250000">sampai Rp250.000</option></select></label></div><div class="chips" id="cats" role="group" aria-label="Kategori">${cats.map(c=>`<button class="chip" aria-pressed="${c===window.__cat}" data-cat="${c}">${c}</button>`).join("")}</div><div id="list" aria-live="polite"></div></section>`;
  bindSettings();$("q").oninput=renderCat;$("maxp").onchange=renderCat;$("sortb").onchange=renderCat;renderCat();renderPaketTeaser();initBanner()}
@@ -102,14 +111,14 @@ function renderCat(){const q=$("q").value.trim().toLowerCase(),mx=+$("maxp").val
  const so=$("sortb")?$("sortb").value:"near";a.sort(so==="cheap"?(x,y)=>x.h-y.h:so==="rate"?(x,y)=>y.r-x.r||y.rc-x.rc:so==="sold"?(x,y)=>y.s-x.s:(x,y)=>tier(x)-tier(y)||y.r-x.r||y.s-x.s);
  $("list").innerHTML=a.length?`<div class="grid">${a.map(card).join("")}</div>`:`<div class="empty">Belum ada yang cocok. Coba ganti kategori atau harga maksimal.</div>`}
 function pagePaket(){const it=P.filter(p=>p.paket),tot=it.reduce((a,p)=>a+p.h,0),miss=it.filter(p=>!inList(p.id)),mt=miss.reduce((a,p)=>a+p.h,0);
- $("main").innerHTML=`<a class="back" href="index.html">← Beranda</a><div class="hero" style="padding-top:0"><h1>Paket Natal Hemat</h1><p>${it.length} kebutuhan utama, semua rating 4,8 ke atas. Tidak cocok? Buka detailnya untuk melihat alternatif.</p></div>
+ $("main").innerHTML=`<a class="back" href="natal.html">← Beranda</a><div class="hero" style="padding-top:0"><h1>Paket Natal Hemat</h1><p>${it.length} kebutuhan utama, semua rating 4,8 ke atas. Tidak cocok? Buka detailnya untuk melihat alternatif.</p></div>
  <div class="paket">${it.map(p=>`<div class="card" style="margin-top:8px;background:#fff">${thumb(p,"m")}<div class="b"><h3><a href="produk.html?id=${p.id}">${p.n}</a></h3><div class="price">${rp(p.h)}</div><div class="meta">★ ${String(p.r).replace(".",",")} · ${p.c}</div><a class="lnk" style="padding:0;min-height:36px" href="produk.html?id=${p.id}">Lihat alternatif</a></div></div>`).join("")}
  <div class="tot"><span>Total paket</span><b>${rp(tot)}</b></div><div class="note" style="margin-bottom:10px">${!miss.length?"Semua isi paket sudah ada di daftarmu.":mt<=room()?`Muat di budgetmu. Sisa setelah ditambahkan ${rp(room()-mt)}.`:`Kurang ${rp(mt-room())} dari budgetmu. Naikkan budget dulu untuk menambahkan.`}</div><button class="btn pri full" data-paket="1">${miss.length?"Tambah semua ke daftar belanja":"Lihat daftar belanja"}</button></div>${strip()}`}
 function pageProduk(){const id=new URLSearchParams(location.search).get("id"),p=byId(id);
- if(!p){$("main").innerHTML=`<a class="back" href="index.html">← Beranda</a><div class="empty">Produk tidak ditemukan.</div>`;return}
+ if(!p){$("main").innerHTML=`<a class="back" href="natal.html">← Beranda</a><div class="empty">Produk tidak ditemukan.</div>`;return}
  const alt=P.filter(o=>o.k===p.k&&o.id!==p.id).sort((x,y)=>tier(x)-tier(y)||y.r-x.r);
  document.title=p.n+" — Siap Natal";
- $("main").innerHTML=`<a class="back" href="index.html">← Semua pilihan</a>${thumb(p,"xl")}<h1 style="font-size:22px;margin-top:12px">${p.n}</h1><div class="price" style="font-size:22px">${rp(p.h)}</div>${p.hn?`<div class="meta">${p.hn}</div>`:""}${stat(p)}${tags(p)}${p.thin?`<div class="meta">Penilaian masih sedikit (di bawah 100).</div>`:""}<p class="why" style="font-size:15px">${p.w}</p><p class="note">Kamu membeli dari daftar belanja, supaya budgetmu terpantau.</p>${strip()}
+ $("main").innerHTML=`<a class="back" href="natal.html">← Semua pilihan</a>${thumb(p,"xl")}<h1 style="font-size:22px;margin-top:12px">${p.n}</h1><div class="price" style="font-size:22px">${rp(p.h)}</div>${p.hn?`<div class="meta">${p.hn}</div>`:""}${stat(p)}${tags(p)}${p.thin?`<div class="meta">Penilaian masih sedikit (di bawah 100).</div>`:""}<p class="why" style="font-size:15px">${p.w}</p><p class="note">Kamu membeli dari daftar belanja, supaya budgetmu terpantau.</p>${strip()}
  <section><h2>Alternatif ${p.k.toLowerCase()}</h2>${alt.length?`<div class="grid">${alt.map(card).join("")}</div>`:`<div class="empty">Belum ada alternatif untuk kategori ini.</div>`}</section><div class="sticky"><div><div class="price" style="margin:0">${rp(p.h)}</div><div class="meta">★ ${String(p.r).replace(".",",")} · ${p.c}</div></div>${addBtn(p)}</div>`}
 function pageDaftar(){const todo=list.filter(x=>x.st==="todo"),open=list.filter(x=>x.st==="open"),done=list.filter(x=>x.st==="done");
  const head=`<div class="hero" style="padding-top:12px"><h1>Daftar belanjaku</h1></div>`;
@@ -118,7 +127,7 @@ function pageDaftar(){const todo=list.filter(x=>x.st==="todo"),open=list.filter(
  const todoH=todo.map(x=>{const p=byId(x.id);return `<div class="item st-todo">${irow(p)}<div class="step">Langkah 1 dari 2 · Beli</div><a class="btn pri full" data-buy="${p.id}" href="${p.l}" target="_blank" rel="${REL}">Buka di Shopee dan beli</a><div class="sub"><button class="lnk" data-mark="${p.id}">Sudah beli sebelumnya</button><button class="lnk" data-rm="${p.id}">Hapus dari daftar</button></div></div>`}).join("");
  const openH=open.map(x=>{const p=byId(x.id);return `<div class="item st-open" id="it-${p.id}">${irow(p)}<div class="step">Langkah 2 dari 2 · Konfirmasi</div><div class="stat">⏳ Menunggu konfirmasimu</div><div>Sudah selesai bayar di Shopee?</div><div class="two"><button class="btn pri" data-mark="${p.id}">Ya, sudah dibeli</button><button class="btn" data-back="${p.id}">Belum jadi</button></div><div class="sub"><a class="lnk" data-buy="${p.id}" href="${p.l}" target="_blank" rel="${REL}">Buka Shopee lagi</a></div></div>`}).join("");
  const doneH=done.length?`<details><summary>Sudah dibeli (${done.length}) · ${rp(spent())}</summary>${done.map(x=>{const p=byId(x.id);return `<div class="item done"><div class="irow">${thumb(p,"m")}<div style="flex:1;min-width:0"><div class="nm">✓ ${p.n}</div><div class="meta">Dibayar ${rp(x.paid)}</div></div><button class="lnk" data-undo="${p.id}">Batalkan</button></div></div>`}).join("")}</details>`:"";
- const empty=!(todo.length||open.length)?`<div class="empty">${done.length?"Semua barang di daftar sudah dibeli. 🎉":"Daftarmu masih kosong."} <a href="index.html">Pilih barang</a> atau <a href="paket.html">lihat paket</a>.</div>`:"";
+ const empty=!(todo.length||open.length)?`<div class="empty">${done.length?"Semua barang di daftar sudah dibeli. 🎉":"Daftarmu masih kosong."} <a href="natal.html">Pilih barang</a> atau <a href="paket.html">lihat paket</a>.</div>`:"";
  $("main").innerHTML=`${head}${notice}${settings()}<div class="panel">${meter()}<p class="note" style="margin:8px 0 0">Harga di daftar adalah harga terendah per varian. Saat konfirmasi, isi harga yang sebenarnya kamu bayar.</p></div>${openH}${todoH}${empty}${doneH}<p class="note" style="margin-top:16px">Tanda sudah dibeli kamu isi sendiri. Kami tidak tahu pembelianmu di Shopee. Pembayaran dan pengiriman diurus Shopee.</p>`;
  bindSettings()}
 function pageDibeli(){const done=list.filter(x=>x.st==="done");
@@ -126,6 +135,7 @@ function pageDibeli(){const done=list.filter(x=>x.st==="done");
  ${done.length?done.map(x=>{const p=byId(x.id);return `<div class="item done"><div class="irow">${thumb(p,"m")}<div style="flex:1;min-width:0"><div class="nm">✓ ${p.n}</div><div class="meta">Dibayar ${rp(x.paid)} · ${p.c}</div></div><button class="lnk" data-undo="${p.id}">Batalkan</button></div></div>`}).join("")+`<div class="tot" style="margin-top:14px"><span>Total dibelanjakan</span><b>${rp(spent())}</b></div>`:`<div class="empty">Belum ada barang yang ditandai sudah dibeli.<br><a href="daftar.html">Buka daftar belanja</a></div>`}
  <a class="btn full" style="margin-top:14px" href="daftar.html">Kembali ke daftar belanja</a><p class="note" style="margin-top:14px">Salah tandai? Tekan "Batalkan" dan barang kembali ke daftar belanja. Ingin belanja lebih? Naikkan budget di halaman daftar belanja.</p>`}
 function render(){
+ if(PAGE==="hub"){pageHub();return}
  const n=list.filter(x=>x.st!=="done").length;const b=$("badge");if(b)b.textContent=n||"";const ct=$("cart");if(ct)ct.setAttribute("aria-label","Daftar belanja, "+n+" barang belum dibeli");
  const keepQ=PAGE==="index"&&$("q")?{q:$("q").value,m:$("maxp").value}:null;
  if(PAGE==="index"){if($("q")){renderCat();renderPaketTeaser();const s=document.querySelector("a.panel[href='daftar.html']");if(s)s.outerHTML=strip();const bi=$("budget");if(bi&&document.activeElement!==bi)bi.value=budget;const ch=$("cats");ch&&ch.querySelectorAll("[data-cat]").forEach(x=>x.setAttribute("aria-pressed",x.dataset.cat===window.__cat))}else pageIndex()}
@@ -151,11 +161,14 @@ function fromSheet(csv){const rows=parseCSV(csv);if(rows.length<2)return null;co
   const h_=+g("harga"),rt=+String(g("rating")).replace(",","."),l=g("link_afiliasi"),im=g("file_gambar");
   /* Sheet hanyalah data: cek ketat sebelum dipakai */
   if(!/^[\w-]+$/.test(g("id"))||!(h_>0)||!(rt>=4.8)||!/^https:\/\/s\.shopee\.co\.id\/[\w-]+$/.test(l)||!/^[\w.-]+$/.test(im)||!cityInfo(g("kota")))continue;
-  const p={id:g("id"),img:im,n:g("nama"),k:g("kategori"),h:h_,s:+g("terjual")||0,r:rt,rc:+g("jumlah_rating")||0,c:g("kota"),l,w:g("alasan"),e:g("emoji")||"🛍️"};
+  const col=(g("koleksi")||"natal").toLowerCase();if(!/^[\w-]+$/.test(col))continue;
+  const p={col,id:g("id"),img:im,n:g("nama"),k:g("kategori"),h:h_,s:+g("terjual")||0,r:rt,rc:+g("jumlah_rating")||0,c:g("kota"),l,w:g("alasan"),e:g("emoji")||"🛍️"};
   if(g("catatan_harga"))p.hn=g("catatan_harga");if(g("paket"))p.paket=1;if(g("bukti_tipis"))p.thin=1;if(g("promo"))p.promo=g("promo");out.push(p)}
  return out}
 async function loadSheet(){if(!SHEET_CSV)return;try{const ctl=new AbortController(),t=setTimeout(()=>ctl.abort(),6000);const res=await fetch(SHEET_CSV,{signal:ctl.signal,cache:"no-cache"});clearTimeout(t);if(!res.ok)return;
- const np=fromSheet(await res.text());if(!np||np.length<3)return;
- if(!["pvc150","popper"].every(id=>np.some(p=>p.id===id)))return; /* banner butuh produk ini */
+ const all=fromSheet(await res.text());if(!all)return;
+ if(PAGE==="hub"){COUNTS={};all.forEach(p=>{COUNTS[p.col]=(COUNTS[p.col]||0)+1});render();return}
+ const np=all.filter(p=>p.col===COL);if(np.length<3)return;
+ if(COL==="natal"&&!["pvc150","popper"].every(id=>np.some(p=>p.id===id)))return; /* banner Natal butuh produk ini */
  P=np;const ids=new Set(P.map(p=>p.id));const n0=list.length;list=list.filter(x=>ids.has(x.id));if(list.length!==n0)save();render()}catch(e){/* pakai data cadangan */}}
 init();loadSheet();

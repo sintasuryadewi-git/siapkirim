@@ -100,3 +100,12 @@ body[data-page=produk]{padding-bottom:140px}
 .dots button[aria-current=true]::after{background:var(--pri);width:20px;margin-left:-10px}
 .ban{cursor:grab}.ban:active{cursor:grabbing}
 .item.done .irow .lnk{flex:none}
+
+/* hub koleksi */
+.kol{display:grid;gap:12px}
+.kc{display:flex;gap:14px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px;text-decoration:none;color:inherit;min-height:88px}
+.kc:hover{border-color:var(--pri)}
+.ke{font-size:36px;width:64px;height:64px;border-radius:16px;background:var(--sand);display:flex;align-items:center;justify-content:center;flex:none}
+.kt{flex:1;min-width:0}.kt h3{font-size:19px}.kd{display:block;color:var(--muted);font-size:14px;margin-top:2px}
+.kn{display:inline-block;margin-top:6px;font-size:12px;font-weight:700;color:var(--pri)}
+.ka{flex:none;font-weight:700;color:var(--pri)}
